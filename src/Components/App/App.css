@@ -1,5 +1,18 @@
-.container {
-  height: 100px;
-  width: 300px;
-  border: 1px solid black;
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  /* border: 1px solid red; */
+}
+
+.page {
+  width: 100%;
+  height: 100vh;
+  background-image: url("../../Media/mountains-6029596_1920.jpg");
+  background-color: #cccccc;
+  background-position: cover;
+  display: flex;
+  align-items: start;
+  padding: 20px;
+
 }

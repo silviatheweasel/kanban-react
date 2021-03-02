@@ -5,7 +5,7 @@ import { Card } from "../Card/Card";
 export class Board extends React.Component {
 
     handleClick(event) {
-        this.props.addTask(event.target.className);
+        this.props.addTask(event.target.name);
     }
 
     render() {
@@ -20,16 +20,17 @@ export class Board extends React.Component {
             case "done":
             header ="Tasks Done";
         }
-        return (<div>
+        return (<div class="board">
             <h2>{header}</h2>
-            <div>
+            <div class="cardContainer">
                 <Card tasks={this.props.tasks}
                       category={this.props.category}
                 >
                 </Card>
             </div>
             <button onClick={this.handleClick.bind(this)}
-                    className={this.props.category}
+                    name={this.props.category}
+                    className="addBtn"
             >
                 + Add another card
             </button>

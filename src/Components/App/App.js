@@ -36,7 +36,7 @@ class App extends React.Component {
 
 
   render() {
-    return (<div>
+    return (<div className="page">
       <Board tasks={this.state.tasks}
              addTask={this.addTask.bind(this)}
              category="todo"

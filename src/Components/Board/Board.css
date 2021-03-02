@@ -1,0 +1,37 @@
+.board {
+    width: 300px;
+    padding: 20px;
+    background-color: #EBECF0;
+    border-radius: 5px;
+    margin: 0 10px; 
+}
+
+h2 {
+    font-size: 17px;
+    color: #252B47;
+    padding: 8px 0;
+}
+
+.cardContainer {
+    margin: 10px 0;
+}
+
+.addBtn {
+    width: 100%;
+    border-color: transparent;
+    color: rgb(122, 123, 128);
+    border-radius: 4px;
+    cursor: pointer;
+    text-align: left;
+    font-size: 15px;
+    padding: 8px;
+    background-color: #EBECF0;
+}
+
+.addBtn:hover,
+.addBtn:focus,
+.addBtn:active {
+    background-color: #e3e5e9;
+    color: #181b29;
+    outline: none;
+}
