@@ -15,8 +15,8 @@ class App extends React.Component {
   }
 
   //creates a new task and updates the state
-  addTask(category) {
-    const newTask = {title: "task", category: category};
+  addTask(task, category) {
+    const newTask = {title: task, category: category};
     this.state.tasks.push(newTask);
     this.setState({tasks: this.state.tasks});
   }
@@ -31,6 +31,12 @@ class App extends React.Component {
     this.setState({tasks: this.state.tasks});
   }
 
+  // changeTaskTitle(task) {
+  //   const newTask = {title: task};
+  //   this.state.tasks.push(newTask);
+  //   this.setState({tasks: this.state.tasks});
+  // }
+
 
   render() {
     return (<div className="page">
@@ -38,6 +44,9 @@ class App extends React.Component {
              addTask={this.addTask.bind(this)}
              updateDroppedItem={this.updateDroppedItem.bind(this)}
              category="todo"
+            //  changeTaskTitle={this.changeTaskTitle.bind(this)}
+            //  addCard={this.addCard.bind(this)}
+            //  isBtnClicked={this.state.isBtnClicked}
  
              
       >
@@ -46,6 +55,9 @@ class App extends React.Component {
              addTask={this.addTask.bind(this)}
              updateDroppedItem={this.updateDroppedItem.bind(this)}
              category="wip"
+            //  changeTaskTitle={this.changeTaskTitle.bind(this)}
+            //  addCard={this.addCard.bind(this)}
+            //  isBtnClicked={this.state.isBtnClicked}
              
       >
       </Board>
@@ -53,6 +65,9 @@ class App extends React.Component {
              addTask={this.addTask.bind(this)}
              updateDroppedItem={this.updateDroppedItem.bind(this)}
              category="done"
+            //  changeTaskTitle={this.changeTaskTitle.bind(this)}
+            //  addCard={this.addCard.bind(this)}
+            //  isBtnClicked={this.state.isBtnClicked}
       >
       </Board>
 
