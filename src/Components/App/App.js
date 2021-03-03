@@ -14,41 +14,44 @@ class App extends React.Component {
     };
   }
 
+  //creates a new task and updates the state
   addTask(category) {
     const newTask = {title: "task", category: category};
     this.state.tasks.push(newTask);
     this.setState({tasks: this.state.tasks});
   }
 
-  // allowDrop(event) {
-  //   event.preventDefault();
-  // }
-
-  // handleDrag(event) {
-  //   event.dataTransfer.setData("text", event.target.id);
-  // }
-
-  // handleDrop(event) {
-  //   const id = event.dataTransfer.getData("text");
-  //   event.target.appendChild(document.getElementById(id));
-  //   event.preventDefault();
-  // }
+  //replaces the tasks in the state with the tasks updated with new categories
+  updateDroppedItem(tasks) {
+    tasks.map(task => {
+      const index = parseInt(this.state.tasks.indexOf(task.title), 10);
+      this.state.tasks.splice(index, task);
+      return this.state.tasks;
+    })
+    this.setState({tasks: this.state.tasks});
+  }
 
 
   render() {
     return (<div className="page">
       <Board tasks={this.state.tasks}
              addTask={this.addTask.bind(this)}
+             updateDroppedItem={this.updateDroppedItem.bind(this)}
              category="todo"
+ 
+             
       >
       </Board>
       <Board tasks={this.state.tasks}
              addTask={this.addTask.bind(this)}
+             updateDroppedItem={this.updateDroppedItem.bind(this)}
              category="wip"
+             
       >
       </Board>
       <Board tasks={this.state.tasks}
              addTask={this.addTask.bind(this)}
+             updateDroppedItem={this.updateDroppedItem.bind(this)}
              category="done"
       >
       </Board>
