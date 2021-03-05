@@ -31,33 +31,31 @@ class App extends React.Component {
     this.setState({tasks: this.state.tasks});
   }
 
-  // changeTaskTitle(task) {
-  //   const newTask = {title: task};
-  //   this.state.tasks.push(newTask);
-  //   this.setState({tasks: this.state.tasks});
-  // }
+  changeTaskTitle(oldName, newName, category) {
+    const unchangedTasks = this.state.tasks.filter(task => task.title !== oldName);
+    const updatedTask = {title : newName, category: category};
+    unchangedTasks.push(updatedTask);
+    this.setState({tasks: unchangedTasks});
+  }
 
 
   render() {
     return (<div className="page">
+      <div id="dimmer"
+           className="hidden"
+      ></div>
       <Board tasks={this.state.tasks}
              addTask={this.addTask.bind(this)}
              updateDroppedItem={this.updateDroppedItem.bind(this)}
              category="todo"
-            //  changeTaskTitle={this.changeTaskTitle.bind(this)}
-            //  addCard={this.addCard.bind(this)}
-            //  isBtnClicked={this.state.isBtnClicked}
- 
-             
+             changeTaskTitle={this.changeTaskTitle.bind(this)}     
       >
       </Board>
       <Board tasks={this.state.tasks}
              addTask={this.addTask.bind(this)}
              updateDroppedItem={this.updateDroppedItem.bind(this)}
              category="wip"
-            //  changeTaskTitle={this.changeTaskTitle.bind(this)}
-            //  addCard={this.addCard.bind(this)}
-            //  isBtnClicked={this.state.isBtnClicked}
+             changeTaskTitle={this.changeTaskTitle.bind(this)}
              
       >
       </Board>
@@ -65,9 +63,7 @@ class App extends React.Component {
              addTask={this.addTask.bind(this)}
              updateDroppedItem={this.updateDroppedItem.bind(this)}
              category="done"
-            //  changeTaskTitle={this.changeTaskTitle.bind(this)}
-            //  addCard={this.addCard.bind(this)}
-            //  isBtnClicked={this.state.isBtnClicked}
+             changeTaskTitle={this.changeTaskTitle.bind(this)}
       >
       </Board>
 

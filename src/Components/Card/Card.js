@@ -2,6 +2,13 @@ import React from "react";
 import "./Card.css";
 
 export class Card extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+                    taskTitle : "",
+                    // showTitleChangeBox: false
+                    }
+    }
     //toggles the className of the remain button
     enterHover(i) {
         document.getElementById("renameBtn" + i).className="displayed renameBtn";
@@ -17,23 +24,26 @@ export class Card extends React.Component {
         event.dataTransfer.setData("text", event.target.id);
     }
 
-    renderTitleChange() {
-        return (<div>
-            <textarea name="titleChange"
-                      rows="3"
-                      cols="30"
-                      maxLength="200"
-                      value={this.props.tasks.title}
-                      onChange={this.handleInputChange}
-                      >
-            </textarea>
-            <button>Save</button>
-        </div>)
+    changeTitle(event) {
+        this.setState({taskTitle: event.target.value})
     }
 
-    // handleInputChange(event) {
-    //     this.props.changeTaskTitle(event.target.value);
-    // } 
+    handleClick(i) {
+        const name = document.getElementById("title" + i).innerHTML;
+        document.getElementById("titleChange" + i).className = "displayed titleChangeBox";
+        document.getElementById("dimmer").className="displayed";
+        this.setState({ taskTitle: name});
+    }
+
+
+    saveTitle(i) {
+        let changedTitle = this.state.taskTitle;
+        let titleName = document.getElementById("title" + i).innerHTML;
+        this.props.changeTaskTitle(titleName, changedTitle, this.props.category);
+        this.setState({ taskTitle: ""}); 
+        document.getElementById("titleChange" + i).className="hidden titleChangeBox";
+        document.getElementById("dimmer").className="hidden";
+    }    
 
     render() {
         const context = this;
@@ -47,14 +57,36 @@ export class Card extends React.Component {
                              id={task.title}
                              className="card"
                              draggable="true"
-                             onDragStart={this.startDrag.bind(this)}
+                             onDragStart={context.startDrag.bind(context)}
                         >
-                            <span className="title">{task.title}</span>
+                            <span className="title"
+                                  id={"title"+ i}>
+                                      {task.title}
+                            </span>
                             <button className="hidden renameBtn"
                                     id={"renameBtn" + i}
+                                    onClick={context.handleClick.bind(context, i)}
                             ><i className="fas fa-pen"></i>
                             </button>
-                            {/* {this.renderTitleChange()} */}
+                        
+                            <div className="titleChangeBox hidden"
+                                 id={"titleChange" + i}
+                                >
+                                <textarea   name="titleChange"
+                                            className="titleBox"
+                                            rows="3"
+                                            cols="30"
+                                            maxLength="200"
+                                            value={this.state.taskTitle}
+                                            onChange={context.changeTitle.bind(context)}
+                                            >
+                                </textarea>
+                                <button onClick={context.saveTitle.bind(context, i)}
+                                        id={"saveBtn" + i}
+                                        className="saveBtn"
+                                        >Save</button>
+                            </div>
+                           
                         </div>
                     )
                 } 

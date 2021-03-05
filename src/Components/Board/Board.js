@@ -11,8 +11,6 @@ export class Board extends React.Component {
                      };
     }
 
-
-
     //updates the local state when the button is clicked
     handleAddCard() {
         this.setState({ isClicked: true });
@@ -60,9 +58,9 @@ export class Board extends React.Component {
         this.props.updateDroppedItem(tasks);
     }
 
-    // changeTaskTitle(task) {
-    //     this.props.changeTaskTitle(task);
-    // }
+    changeTaskTitle(oldName, newName, category) {
+        this.props.changeTaskTitle(oldName, newName, category);
+    }
 
     renderNewTaskBox() {
         if (this.state.isClicked) {
@@ -108,7 +106,7 @@ export class Board extends React.Component {
                     <div className="cardContainer">
                         <Card tasks={this.props.tasks}
                               category={this.props.category}
-                            //   changeTaskTitle={this.changeTaskTitle.bind(this)}
+                              changeTaskTitle={this.changeTaskTitle.bind(this)}
 
                         >
                         </Card>
