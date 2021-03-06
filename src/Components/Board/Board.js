@@ -62,21 +62,32 @@ export class Board extends React.Component {
         this.props.changeTaskTitle(oldName, newName, category);
     }
 
+    handleInput(event) {
+        const field = event.target;
+        this.props.autoExpand(field);
+    }
+
     renderNewTaskBox() {
         if (this.state.isClicked) {
             return (<div>
                 <textarea name="newTaskInput"
                           placeholder="Enter a title for this card..."
+                          className="newTaskInput"
                           rows="3"
-                          cols="30"
+                          cols="35"
                           maxLength="200"
                           onChange={this.updateTaskTitle.bind(this)}
+                          onInput={this.handleInput.bind(this)}
                           value={this.state.newTitle} 
                           autoFocus                            
                     >
                 </textarea>
-                <button onClick={this.handleClick.bind(this)}>Add Card</button>
-                <button onClick={this.handleCancel.bind(this)}> X</button>
+                <div className="buttons">
+                    <button className="saveBtn"
+                            onClick={this.handleClick.bind(this)}>Add Card</button>
+                    <button className="cancelBtn"
+                            onClick={this.handleCancel.bind(this)}><i class="fas fa-times fa-lg"></i></button>
+                </div>               
             </div>)
         }      
     }
@@ -107,7 +118,7 @@ export class Board extends React.Component {
                         <Card tasks={this.props.tasks}
                               category={this.props.category}
                               changeTaskTitle={this.changeTaskTitle.bind(this)}
-
+                              autoExpand={this.handleInput.bind(this)}
                         >
                         </Card>
 

@@ -12,8 +12,10 @@ h2 {
     padding: 8px 0;
 }
 
-.cardContainer {
-    margin: 10px 0;
+
+.buttons {
+    display: flex;
+    flex-direction: row;
 }
 
 .addBtn {
@@ -34,4 +36,27 @@ h2 {
     background-color: #e3e5e9;
     color: #181b29;
     outline: none;
+}
+
+.cancelBtn {
+    background-color: transparent;
+    border: none;
+    padding: 0;
+    margin: 10px 0 0 0;
+    cursor: pointer;
+    color: rgb(122, 123, 128);
+}
+.cancelBtn:hover,
+.cancelBtn:focus,
+.cancelBtn:active {
+    color: #181b29;
+    outline: none;
+}
+
+.newTaskInput {
+    width: 260px;
+    margin-bottom: 5px;
+    -webkit-box-shadow: 0px 1px 3px 0px rgba(50, 50, 50, 0.75);
+    -moz-box-shadow: 0px 1px 3px 0px rgba(50, 50, 50, 0.75);
+    box-shadow: 0px 1px 3px 0px rgba(50, 50, 50, 0.75); 
 }

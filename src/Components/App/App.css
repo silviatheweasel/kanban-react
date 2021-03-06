@@ -20,6 +20,7 @@
 
 #dimmer {
   position: fixed;
+  z-index: 5;
   top: 0;
   left: 0;
   background-color: rgba(0, 0, 0, 0.6);
@@ -29,5 +30,16 @@
 
 textarea {
   font-family: Helvetica, sans-serif;
-  font-size: 16px;
+  font-size: inherit;
+  width: 260px;
+  font-size: 15px;
+  position: relative;
+  border-radius: 5px;
+  border-color: transparent;
+  padding: 8px;
+  resize: none;
+}
+
+textarea:focus {
+  outline: none;
 }

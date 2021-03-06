@@ -43,7 +43,12 @@ export class Card extends React.Component {
         this.setState({ taskTitle: ""}); 
         document.getElementById("titleChange" + i).className="hidden titleChangeBox";
         document.getElementById("dimmer").className="hidden";
-    }    
+    }   
+    
+    // handleInput(event) {
+    //     const field = event.target;
+    //     this.props.handleInput(field);
+    // }
 
     render() {
         const context = this;
@@ -63,10 +68,11 @@ export class Card extends React.Component {
                                   id={"title"+ i}>
                                       {task.title}
                             </span>
+
                             <button className="hidden renameBtn"
                                     id={"renameBtn" + i}
                                     onClick={context.handleClick.bind(context, i)}
-                            ><i className="fas fa-pen"></i>
+                                ><i className="fas fa-pen"></i>
                             </button>
                         
                             <div className="titleChangeBox hidden"
@@ -75,10 +81,11 @@ export class Card extends React.Component {
                                 <textarea   name="titleChange"
                                             className="titleBox"
                                             rows="3"
-                                            cols="30"
+                                            cols="35"
                                             maxLength="200"
                                             value={this.state.taskTitle}
                                             onChange={context.changeTitle.bind(context)}
+                                            // onInput={context.handleInput.bind(context)}
                                             >
                                 </textarea>
                                 <button onClick={context.saveTitle.bind(context, i)}
