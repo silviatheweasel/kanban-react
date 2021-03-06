@@ -31,6 +31,7 @@ class App extends React.Component {
     this.setState({tasks: this.state.tasks});
   }
 
+  //filters out the task whose name needs to be changed, updates the name, and then updates the state
   changeTaskTitle(oldName, newName, category) {
     const unchangedTasks = this.state.tasks.filter(task => task.title !== oldName);
     const updatedTask = {title : newName, category: category};
@@ -38,10 +39,11 @@ class App extends React.Component {
     this.setState({tasks: unchangedTasks});
   }
 
+  //calculates the height of the element and sets the height
   autoExpand(field) {
     field.style.height = 'inherit';
 	  const computed = window.getComputedStyle(field);
-    let height = parseInt(computed.getPropertyValue('border-top-width'), 10)
+    const height = parseInt(computed.getPropertyValue('border-top-width'), 10)
                 + parseInt(computed.getPropertyValue('padding-top'), 10)
                 + field.scrollHeight
                 + parseInt(computed.getPropertyValue('padding-bottom'), 10)

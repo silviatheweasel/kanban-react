@@ -12,13 +12,14 @@ export class Board extends React.Component {
     }
 
     //updates the local state when the button is clicked
-    handleAddCard() {
+    handleAddCard(event) {
         this.setState({ isClicked: true });
+        event.target.className = "addBtn hidden";
     }
 
     //updates the local state when the textarea changes
     updateTaskTitle(event) {
-        this.setState({ newTitle: event.target.value })
+        this.setState({ newTitle: event.target.value });
     }
 
     //if a new task has been input, passes the title of the new task and its category to the global state
@@ -29,16 +30,18 @@ export class Board extends React.Component {
             this.setState({newTitle : "",
                            isClicked: false 
                         });
+            document.getElementById("btn" + this.props.category).className = "addBtn";
         } else {
             return;
         }
     }
 
     //resets the local state
-    handleCancel() {
+    handleCancel(event) {
         this.setState({newTitle : "",
                        isClicked: false 
                       });
+        document.getElementById("btn" + this.props.category).className = "addBtn";
     }
 
     //prevent browser default behavior to allow dropping
@@ -57,16 +60,24 @@ export class Board extends React.Component {
         }
         this.props.updateDroppedItem(tasks);
     }
-
+    
+    //passing the state handler down from App to child component
     changeTaskTitle(oldName, newName, category) {
         this.props.changeTaskTitle(oldName, newName, category);
     }
 
+    //event handler that connects with the function that expands the textarea in App
     handleInput(event) {
         const field = event.target;
         this.props.autoExpand(field);
     }
 
+    //passing the AutoExpand function from App to child component
+    autoExpand(field) {
+        this.props.autoExpand(field);
+    }
+
+    //renders a div with a textarea box and two buttons when the state isClicked is true
     renderNewTaskBox() {
         if (this.state.isClicked) {
             return (<div>
@@ -76,25 +87,26 @@ export class Board extends React.Component {
                           rows="3"
                           cols="35"
                           maxLength="200"
-                          onChange={this.updateTaskTitle.bind(this)}
-                          onInput={this.handleInput.bind(this)}
                           value={this.state.newTitle} 
-                          autoFocus                            
+                          autoFocus     
+                          onChange={this.updateTaskTitle.bind(this)}
+                          onInput={this.handleInput.bind(this)}                       
                     >
                 </textarea>
                 <div className="buttons">
                     <button className="saveBtn"
                             onClick={this.handleClick.bind(this)}>Add Card</button>
                     <button className="cancelBtn"
-                            onClick={this.handleCancel.bind(this)}><i class="fas fa-times fa-lg"></i></button>
+                            onClick={this.handleCancel.bind(this)}><i className="fas fa-times fa-lg"></i></button>
                 </div>               
             </div>)
         }      
     }
 
     render() {
-        //get header name based on the category
         let header;
+
+        //get header name based on the category
         switch(this.props.category) {
             case "todo": 
                 header = "Tasks To Do";
@@ -118,16 +130,17 @@ export class Board extends React.Component {
                         <Card tasks={this.props.tasks}
                               category={this.props.category}
                               changeTaskTitle={this.changeTaskTitle.bind(this)}
-                              autoExpand={this.handleInput.bind(this)}
+                              autoExpand={this.autoExpand.bind(this)}
                         >
                         </Card>
 
                         {this.renderNewTaskBox()}
 
                     </div>
-                    <button onClick={this.handleAddCard.bind(this)}
-                            name={this.props.category}
-                            className="addBtn"
+                    <button name={this.props.category}
+                            className="addBtn" 
+                            id = {"btn" + this.props.category} 
+                            onClick={this.handleAddCard.bind(this)}                        
                     >
                         + Add another card
                     </button>
