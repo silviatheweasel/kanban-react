@@ -35,9 +35,21 @@ export class Board extends React.Component {
             return;
         }
     }
+    //basically same as the handleClick function but allows a new input box to open
+    handleEnter(event) {
+        if (event.keyCode === 13 && this.state.newTitle !== "") {
+            this.props.addTask(this.state.newTitle, this.props.category);
+            this.setState({newTitle : "",
+                           isClicked: true 
+                        });
+            document.getElementById("btn" + this.props.category).className = "addBtn";
+        } else {
+            return;
+        }
+    }
 
     //resets the local state
-    handleCancel(event) {
+    handleCancel() {
         this.setState({newTitle : "",
                        isClicked: false 
                       });
@@ -77,29 +89,43 @@ export class Board extends React.Component {
         this.props.autoExpand(field);
     }
 
+
+
+    // componentWillUnmount() {
+    //     window.removeEventListener();
+    //   }
+
+
     //renders a div with a textarea box and two buttons when the state isClicked is true
     renderNewTaskBox() {
         if (this.state.isClicked) {
-            return (<div>
-                <textarea name="newTaskInput"
-                          placeholder="Enter a title for this card..."
-                          className="newTaskInput"
-                          rows="3"
-                          cols="35"
-                          maxLength="200"
-                          value={this.state.newTitle} 
-                          autoFocus     
-                          onChange={this.updateTaskTitle.bind(this)}
-                          onInput={this.handleInput.bind(this)}                       
-                    >
-                </textarea>
-                <div className="buttons">
-                    <button className="saveBtn"
-                            onClick={this.handleClick.bind(this)}>Add Card</button>
-                    <button className="cancelBtn"
-                            onClick={this.handleCancel.bind(this)}><i className="fas fa-times fa-lg"></i></button>
-                </div>               
-            </div>)
+            
+            return (<div className="newTitleContainer" 
+                         id={"container" + this.props.category }
+                        >
+                         
+                        <textarea   name="newTaskInput"
+                                    placeholder="Enter a title for this card..."
+                                    className="newTaskInput"
+                                    rows="3"
+                                    cols="35"
+                                    maxLength="200"
+                                    value={this.state.newTitle} 
+                                    autoFocus     
+                                    onChange={this.updateTaskTitle.bind(this)}
+                                    onInput={this.handleInput.bind(this)}
+                                    onKeyUp={this.handleEnter.bind(this)}                       
+                            >
+                        </textarea>
+
+                        <div className="buttons">
+                            <button className="saveBtn"
+                                    onClick={this.handleClick.bind(this)}>Add Card</button>
+                            <button className="cancelBtn"
+                                    onClick={this.handleCancel.bind(this)}><i className="fas fa-times fa-lg"></i></button>
+                        </div>
+
+                    </div>)
         }      
     }
 
@@ -121,22 +147,23 @@ export class Board extends React.Component {
                 header = "New Board";
                 break;
         }
-        return (<div className="board"
-                     onDragOver={this.handleDragOver.bind(this)}
-                     onDrop={this.handleDrop.bind(this)}
-                >
+        return (<div className="board">
+
                     <h2>{header}</h2>
-                    <div className="cardContainer">
+
+                    <div className="cardContainer"
+                          onDragOver={this.handleDragOver.bind(this)}
+                          onDrop={this.handleDrop.bind(this)}>
+
                         <Card tasks={this.props.tasks}
                               category={this.props.category}
                               changeTaskTitle={this.changeTaskTitle.bind(this)}
-                              autoExpand={this.autoExpand.bind(this)}
+                              autoExpand={this.autoExpand.bind(this)}                           
                         >
                         </Card>
 
                         {this.renderNewTaskBox()}
 
-                    </div>
                     <button name={this.props.category}
                             className="addBtn" 
                             id = {"btn" + this.props.category} 
@@ -144,6 +171,8 @@ export class Board extends React.Component {
                     >
                         + Add another card
                     </button>
+
+                    </div>
                 </div>)
     }
 };

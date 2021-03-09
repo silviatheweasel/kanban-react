@@ -6,6 +6,10 @@
     display: inline-block;
 }
 
+.card-container {
+    position: relative;
+}
+
 .card {
     background-color: white;
     color: #22273a;
@@ -14,7 +18,8 @@
     border-radius: 4px;
     margin-bottom: 8px;
     cursor:pointer;
-    position: relative;
+    position: relative; 
+    z-index: 1;
     -webkit-box-shadow: 0px 1px 3px 0px rgba(50, 50, 50, 0.75);
     -moz-box-shadow: 0px 1px 3px 0px rgba(50, 50, 50, 0.75);
     box-shadow: 0px 1px 3px 0px rgba(50, 50, 50, 0.75); 
@@ -58,7 +63,7 @@ i {
 .titleChangeBox {
     position: absolute;
     top: 0;
-    left: 0;
+    bottom: 46px;
     width: 260px;
     z-index: 20;
     height: auto;
