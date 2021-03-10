@@ -21,6 +21,9 @@
   display: flex;
   align-items: flex-start;
   font-family: Helvetica, sans-serif;
+  overflow-x: scroll;
+  width: fit-content;
+  padding-bottom: 100px;
 }
 
 #dimmer {
@@ -49,4 +52,13 @@ textarea {
 
 textarea:focus {
   outline: none;
+}
+
+.newListBtn {
+  width: 280px;
+  margin: 10px 5px; 
+  font-size: 17px;
+  color: white;
+  font-weight: 700;
+  background: rgba(255,255,255,.5);
 }

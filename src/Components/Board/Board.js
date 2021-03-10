@@ -7,7 +7,7 @@ export class Board extends React.Component {
         super(props);
    
         this.state = { isClicked: false,
-                       newTitle: ""
+                       newTitle: "",
                      };
     }
 
@@ -90,12 +90,6 @@ export class Board extends React.Component {
     }
 
 
-
-    // componentWillUnmount() {
-    //     window.removeEventListener();
-    //   }
-
-
     //renders a div with a textarea box and two buttons when the state isClicked is true
     renderNewTaskBox() {
         if (this.state.isClicked) {
@@ -130,26 +124,9 @@ export class Board extends React.Component {
     }
 
     render() {
-        let header;
-
-        //get header name based on the category
-        switch(this.props.category) {
-            case "todo": 
-                header = "Tasks To Do";
-                break;
-            case "wip":
-                header = "In Progress";
-                break;
-            case "done":
-                header ="Tasks Done";
-                break;
-            default:
-                header = "New Board";
-                break;
-        }
         return (<div className="board">
 
-                    <h2>{header}</h2>
+                    <h2>{this.props.category}</h2>
 
                     <div className="cardContainer"
                           onDragOver={this.handleDragOver.bind(this)}
