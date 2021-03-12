@@ -3,8 +3,6 @@ import { Board } from "../Board/Board";
 import { AddList } from "../AddList/AddList";
 import './App.css';
 import mountains from "../../Media/mountains-6029596_1920.jpg";
-import person from "../../Media/person-6076771_1920.jpg";
-import sunrise from "../../Media/sunrise-5863751_1920.png";
 
 class App extends React.Component {
   constructor(props) {
