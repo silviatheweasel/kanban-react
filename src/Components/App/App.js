@@ -2,6 +2,9 @@ import React from "react";
 import { Board } from "../Board/Board";
 import { AddList } from "../AddList/AddList";
 import './App.css';
+import mountains from "../../Media/mountains-6029596_1920.jpg";
+import person from "../../Media/person-6076771_1920.jpg";
+import sunrise from "../../Media/sunrise-5863751_1920.png";
 
 class App extends React.Component {
   constructor(props) {
@@ -9,7 +12,7 @@ class App extends React.Component {
     this.state = {
       tasks: [],
       isClicked: false,
-      listName: ""
+      listName: "",
     };
   }
 
@@ -37,7 +40,6 @@ class App extends React.Component {
       const newList = {category: inputName, items: [] };
       this.state.tasks.push(newList);
       this.setState({ tasks: this.state.tasks,
-                      // isClicked: false,
                       listName: ""
                     })
     document.getElementById("addBtn").style.display="none";
@@ -61,13 +63,19 @@ class App extends React.Component {
   }
 
   //replaces the tasks in the state with the tasks updated with new categories
-  updateDroppedItem(tasks) {
-    tasks.map(task => {
-      const index = parseInt(this.state.tasks.indexOf(task.title), 10);
-      this.state.tasks.splice(index, task);
-      return this.state.tasks;
-    })
-    this.setState({tasks: this.state.tasks});
+  updateDroppedItem(originalCategory, newCategory, taskName) {
+
+        const tasks = this.state.tasks;
+        for (let i = 0; i < tasks.length; i++) {
+          if (tasks[i].category === originalCategory) {
+            const index = tasks[i].items.indexOf(taskName);
+            tasks[i].items.splice(index, 1);
+          }
+          if (tasks[i].category === newCategory) {
+            tasks[i].items.push(taskName);          
+          }
+        }
+        this.setState({ tasks: tasks}); 
   }
 
   //finds the index of the task that needs updating and replaces its name with the new name, and then updates the state
@@ -118,9 +126,26 @@ class App extends React.Component {
 
 
   render() {
+    // const images = [{name: "mountains",
+    //                  alt: "mountains",
+    //                 filePath: "mountains-6029596_1920.jpg"
+    //                  }, 
+    //                     {name: "person",
+    //                                     alt: "person",
+    //                                     fileName: "person-6076771_1920.jpg"
+    //                                     },
+    //                     {name: "sunrise",
+    //                                     alt: "sunrise",
+    //                                     fileName: "sunrise-5863751_1920.png"
+    //                                     }
+    //                     ]
+    const backgroundImg = <img src={mountains}
+                               alt="mountains"
+                               id="background"></img>
+ 
     return (<div className="page">
-              <div id="background">
-              </div>
+
+              {backgroundImg}
 
               <div id="dimmer"
                    className="hidden"
@@ -143,7 +168,9 @@ class App extends React.Component {
                       id="addBtn"
                       onClick={this.addNewList.bind(this)}
                     >+ Add a list</button>
-
+              {/* <button className="backgroundBtn"> 
+                Change background
+              </button> */}
             </div>)
           }
 }

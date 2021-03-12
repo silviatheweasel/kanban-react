@@ -64,10 +64,6 @@ export class Card extends React.Component {
         input.focus();
         input.select();
     }
-
-    // componentWillUnmount() {
-    //     window.removeEventListener();
-    //   }
         
 
     render() {
@@ -80,7 +76,7 @@ export class Card extends React.Component {
                                  className="card-container"
                                 >
 
-                                <div    id={"card-" + this.props.category + i}
+                                <div    id={"card" + this.props.category + "-" + i}
                                         className="card"
                                         draggable="true"
                                         onDragStart={context.startDrag.bind(context)}

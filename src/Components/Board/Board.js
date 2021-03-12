@@ -61,16 +61,18 @@ export class Board extends React.Component {
         event.preventDefault();
     }
     
-    //finds tasks whose tasks match the id passed over from the drag event target
-    //then updates the category of these tasks to the current category
+    //finds the original category and name of the task that needs to be moved from the id being passed
+    //passing the original category, new category, and the name of the task to the state handler in App
     handleDrop(event) {
-        let id = event.dataTransfer.getData("text");
-        let tasks = this.props.tasks.filter(task => 
-           task.title === id);
-        for (let i = 0; i < tasks.length; i ++) {
-            tasks[i].category = this.props.category;
-        }
-        this.props.updateDroppedItem(tasks);
+        const id = event.dataTransfer.getData("text");
+        const index = id.indexOf("-");
+        const taskIndex = id.slice(index + 1);
+        const originalCategory = id.slice(4, index);
+        const newCategory = this.props.category;
+        const tasksOriginalCategory = this.props.tasks.find(task => task.category === originalCategory);
+        const taskName = tasksOriginalCategory.items[taskIndex];
+
+        this.props.updateDroppedItem(originalCategory, newCategory, taskName);
     }
     
     //passing the state handler down from App to child component
