@@ -7,7 +7,7 @@ export class Board extends React.Component {
         super(props);
    
         this.state = { isClicked: false,
-                       newTitle: ""
+                       newTitle: "",
                      };
     }
 
@@ -61,16 +61,18 @@ export class Board extends React.Component {
         event.preventDefault();
     }
     
-    //finds tasks whose tasks match the id passed over from the drag event target
-    //then updates the category of these tasks to the current category
+    //finds the original category and name of the task that needs to be moved from the id being passed
+    //passing the original category, new category, and the name of the task to the state handler in App
     handleDrop(event) {
-        let id = event.dataTransfer.getData("text");
-        let tasks = this.props.tasks.filter(task => 
-           task.title === id);
-        for (let i = 0; i < tasks.length; i ++) {
-            tasks[i].category = this.props.category;
-        }
-        this.props.updateDroppedItem(tasks);
+        const id = event.dataTransfer.getData("text");
+        const index = id.indexOf("-");
+        const taskIndex = id.slice(index + 1);
+        const originalCategory = id.slice(4, index);
+        const newCategory = this.props.category;
+        const tasksOriginalCategory = this.props.tasks.find(task => task.category === originalCategory);
+        const taskName = tasksOriginalCategory.items[taskIndex];
+
+        this.props.updateDroppedItem(originalCategory, newCategory, taskName);
     }
     
     //passing the state handler down from App to child component
@@ -88,12 +90,6 @@ export class Board extends React.Component {
     autoExpand(field) {
         this.props.autoExpand(field);
     }
-
-
-
-    // componentWillUnmount() {
-    //     window.removeEventListener();
-    //   }
 
 
     //renders a div with a textarea box and two buttons when the state isClicked is true
@@ -130,26 +126,9 @@ export class Board extends React.Component {
     }
 
     render() {
-        let header;
-
-        //get header name based on the category
-        switch(this.props.category) {
-            case "todo": 
-                header = "Tasks To Do";
-                break;
-            case "wip":
-                header = "In Progress";
-                break;
-            case "done":
-                header ="Tasks Done";
-                break;
-            default:
-                header = "New Board";
-                break;
-        }
         return (<div className="board">
 
-                    <h2>{header}</h2>
+                    <h2>{this.props.category}</h2>
 
                     <div className="cardContainer"
                           onDragOver={this.handleDragOver.bind(this)}

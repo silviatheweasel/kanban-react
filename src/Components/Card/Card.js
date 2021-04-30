@@ -10,12 +10,12 @@ export class Card extends React.Component {
     }
     //toggles the className of the remain button
     enterHover(i) {
-        document.getElementById("renameBtn" + i).className="displayed renameBtn";
+        document.getElementById("renameBtn-" + this.props.category + i).className="displayed renameBtn";
     }
 
     //toggles the className of the remain button
     leaveHover(i) {
-        document.getElementById("renameBtn" + i).className="hidden renameBtn";
+        document.getElementById("renameBtn-" + this.props.category + i).className="hidden renameBtn";
     }
 
     //starts drag by transferring the id of the event target
@@ -30,18 +30,10 @@ export class Card extends React.Component {
 
     //displays the title change pop-up box and the dimmer when button is clicked, and updates the local state
     handleClick(i) {
-        const name = document.getElementById("title" + i).innerHTML;  
-        document.getElementById("titleChange" + i).className = "displayed titleChangeBox";
+        const name = document.getElementById("title-"+ this.props.category + i).innerHTML;  
+        document.getElementById("titleChange-" + this.props.category + i).className = "displayed titleChangeBox";
         document.getElementById("dimmer").className="displayed";
         this.selectText(i); 
-        // const titleChangeArea =  document.getElementById("titleBox" + i);
-        // const computed = window.getComputedStyle(titleChangeArea);
-        // const height = parseInt(computed.getPropertyValue('border-top-width'), 10)
-        //         + parseInt(computed.getPropertyValue('padding-top'), 10)
-        //         + titleChangeArea.scrollHeight
-        //         + parseInt(computed.getPropertyValue('padding-bottom'), 10)
-        //         + parseInt(computed.getPropertyValue('border-bottom-width'), 10);
-        // titleChangeArea.style.height= height + "px";
         this.setState({ taskTitle: name}); 
     }
 
@@ -49,11 +41,11 @@ export class Card extends React.Component {
     //resets the local state, and hides the pop-up box and dimmer
     saveTitle(i) {
         const changedTitle = this.state.taskTitle;
-        const titleName = document.getElementById("title" + i).innerHTML;
+        const titleName = document.getElementById("title-"+ this.props.category + i).innerHTML;
         if (changedTitle !== "") {
             this.props.changeTaskTitle(titleName, changedTitle, this.props.category);
             this.setState({ taskTitle: ""}); 
-            document.getElementById("titleChange" + i).className="hidden titleChangeBox";
+            document.getElementById("titleChange-" + this.props.category + i).className="hidden titleChangeBox";
             document.getElementById("dimmer").className="hidden";
         } else {
             return;
@@ -68,70 +60,64 @@ export class Card extends React.Component {
 
     //selects and focuses on the text
     selectText(i) {
-        const input = document.getElementById("titleBox" + i);
+        const input = document.getElementById("titleBox-" + this.props.category + i);
         input.focus();
         input.select();
     }
-
-    // componentWillUnmount() {
-    //     window.removeEventListener();
-    //   }
         
 
     render() {
         const context = this;
-        return (       
-            this.props.tasks.map((task, i) => {
-                if (task.category === this.props.category) {
-                    return (
-                        <div key={"task" + i}
-                             className="card-container"
-                            >
-
-                            <div    id={task.title}
-                                    className="card"
-                                    draggable="true"
-                                    onDragStart={context.startDrag.bind(context)}
-                                    onMouseEnter={context.enterHover.bind(context, i)}
-                                    onMouseLeave={context.leaveHover.bind(context, i)}>
-
-                                <span className="title"
-                                    id={"title"+ i}
-                                    >
-                                        {task.title}
-                                </span>
-
-                                <button className="hidden renameBtn"
-                                        id={"renameBtn" + i}
-                                        onClick={context.handleClick.bind(context, i)}
-                                    ><i className="fas fa-pen"></i>
-                                </button>
-                            </div>
-
-                            <div className="titleChangeBox hidden"
-                                 id={"titleChange" + i}
-                                 draggable="false"                               
+        const tasks = this.props.tasks;
+        for (let i = 0; i < tasks.length; i++) {
+            if (tasks[i].category === this.props.category) {
+                return tasks[i].items.map ((item, i) => {
+                    return (<div key={"task" + item}
+                                 className="card-container"
                                 >
-                                <textarea   name="titleChange"
-                                            className="titleBox"
-                                            id={"titleBox" + i}
-                                            rows="5"
-                                            cols="35"
-                                            maxLength="200"
-                                            value={this.state.taskTitle}
-                                            onChange={context.changeTitle.bind(context)}
-                                            onInput={context.handleInput.bind(context)}
+
+                                <div    id={"card" + this.props.category + "-" + i}
+                                        className="card"
+                                        draggable="true"
+                                        onDragStart={context.startDrag.bind(context)}
+                                        onMouseEnter={context.enterHover.bind(context, i)}
+                                        onMouseLeave={context.leaveHover.bind(context, i)}>
+
+                                    <span className="title"
+                                          id={"title-"+ this.props.category + i}
                                         >
-                                </textarea>
-                                <button id={"saveBtn" + i}
-                                        className="saveBtn"
-                                        onClick={context.saveTitle.bind(context, i)}
-                                    >Save</button>                      
-                            </div>
-                        </div>
-                    )
-                } 
-            })        
-        )
-    }
+                                            {item}
+                                    </span>
+
+                                    <button className="hidden renameBtn"
+                                            id={"renameBtn-" + this.props.category + i}
+                                            onClick={context.handleClick.bind(context, i)}
+                                        ><i className="fas fa-pen"></i>
+                                    </button>
+                                </div>
+
+                                <div className="titleChangeBox hidden"
+                                        id={"titleChange-" + this.props.category + i}
+                                        draggable="false"                               
+                                    >
+                                    <textarea   name="titleChange"
+                                                className="titleBox"
+                                                id={"titleBox-" + this.props.category + i}
+                                                rows="5"
+                                                cols="35"
+                                                maxLength="200"
+                                                value={this.state.taskTitle}
+                                                onChange={context.changeTitle.bind(context)}
+                                                onInput={context.handleInput.bind(context)}
+                                            >
+                                    </textarea>
+                                    <button id={"saveBtn-" + this.props.category + i}
+                                            className="saveBtn"
+                                            onClick={context.saveTitle.bind(context, i)}
+                                        >Save</button>                      
+                                </div>
+                            </div>)})
+                            }
+                        }
+        }   
 }

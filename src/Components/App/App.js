@@ -2,23 +2,22 @@ import React from "react";
 import { Board } from "../Board/Board";
 import { AddList } from "../AddList/AddList";
 import './App.css';
+import mountains from "../../Media/mountains-6029596_1920.jpg";
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      tasks: [
-        {title: "task 1", category: "todo"},
-        {title: "task 2", category: "wip"},
-        {title: "task 3", category: "done"},
-      ], 
+      tasks: [],
       isClicked: false,
-      listName: ""
+      listName: "",
     };
   }
 
   addNewList() {
     this.setState({isClicked: true});
+    document.getElementById("addBtn").style.display="none";
+
   }
 
   handleListNameUpdate(inputName) {
@@ -26,37 +25,67 @@ class App extends React.Component {
   }
 
   handleListNameSave(inputName) {
-    const newList = {title: "", category: inputName };
+    const newList = {category: inputName, items: [] };
     this.state.tasks.push(newList);
     this.setState({ tasks: this.state.tasks,
                     isClicked: false,
                     listName: ""
-    })
+                  })
+    document.getElementById("addBtn").style.display="block";
+  }
+
+  handleEnter(inputName) {
+      const newList = {category: inputName, items: [] };
+      this.state.tasks.push(newList);
+      this.setState({ tasks: this.state.tasks,
+                      listName: ""
+                    })
+    document.getElementById("addBtn").style.display="none";
+  }
+
+  cancelAddList() {
+    this.setState({isClicked: false,
+                   listName: ""})
+    document.getElementById("addBtn").style.display="block";
   }
 
   //creates a new task and updates the state
   addTask(task, category) {
-    const newTask = {title: task, category: category};
-    this.state.tasks.push(newTask);
+    const tasks = this.state.tasks;
+    for (let i = 0; i < this.state.tasks.length; i++) {
+      if (tasks[i].category === category) {
+        tasks[i].items.push(task);
+      }
+    }
     this.setState({tasks: this.state.tasks});
   }
 
   //replaces the tasks in the state with the tasks updated with new categories
-  updateDroppedItem(tasks) {
-    tasks.map(task => {
-      const index = parseInt(this.state.tasks.indexOf(task.title), 10);
-      this.state.tasks.splice(index, task);
-      return this.state.tasks;
-    })
-    this.setState({tasks: this.state.tasks});
+  updateDroppedItem(originalCategory, newCategory, taskName) {
+
+        const tasks = this.state.tasks;
+        for (let i = 0; i < tasks.length; i++) {
+          if (tasks[i].category === originalCategory) {
+            const index = tasks[i].items.indexOf(taskName);
+            tasks[i].items.splice(index, 1);
+          }
+          if (tasks[i].category === newCategory) {
+            tasks[i].items.push(taskName);          
+          }
+        }
+        this.setState({ tasks: tasks}); 
   }
 
   //finds the index of the task that needs updating and replaces its name with the new name, and then updates the state
   changeTaskTitle(oldName, newName, category) {
-    const oldTaskIndex = this.state.tasks.findIndex(task => task.title === oldName);
-    const updatedTask = {title : newName, category: category};
-    this.state.tasks.splice(oldTaskIndex, 1, updatedTask);
-    this.setState({tasks: this.state.tasks});
+    const tasks = this.state.tasks;
+    for (let i = 0; i < tasks.length; i++) {
+      if (tasks[i].category === category) {
+        const index = tasks[i].items.findIndex(item => item === oldName);
+        tasks[i].items.splice(index, 1, newName);
+      }
+    }
+    this.setState({tasks: this.state.tasks});   
   }
 
   //calculates the height of the element and sets the height
@@ -80,60 +109,66 @@ class App extends React.Component {
       }
   }
 
+  renderBoards() {
+  return this.state.tasks.map(task => 
+    {return <Board  tasks={this.state.tasks}  
+                    key={task.category}
+                    addTask={this.addTask.bind(this)}
+                    updateDroppedItem={this.updateDroppedItem.bind(this)}
+                    category={task.category}
+                    changeTaskTitle={this.changeTaskTitle.bind(this)}  
+                    autoExpand={this.autoExpand.bind(this)}   
+                >
+            </Board>})
+  }
 
-
-  //cleans up event listeners
-  // componentWillUnmount() {
-  //   window.removeEventListener();
-  // }
 
   render() {
+    // const images = [{name: "mountains",
+    //                  alt: "mountains",
+    //                 filePath: "mountains-6029596_1920.jpg"
+    //                  }, 
+    //                     {name: "person",
+    //                                     alt: "person",
+    //                                     fileName: "person-6076771_1920.jpg"
+    //                                     },
+    //                     {name: "sunrise",
+    //                                     alt: "sunrise",
+    //                                     fileName: "sunrise-5863751_1920.png"
+    //                                     }
+    //                     ]
+    const backgroundImg = <img src={mountains}
+                               alt="mountains"
+                               id="background"></img>
+ 
     return (<div className="page">
-              <div id="background">
-              </div>
+
+              {backgroundImg}
 
               <div id="dimmer"
                    className="hidden"
                    onClick={this.handleClosePopUp.bind(this)}
               ></div>
 
-              <Board tasks={this.state.tasks}
-                     addTask={this.addTask.bind(this)}
-                     updateDroppedItem={this.updateDroppedItem.bind(this)}
-                     category="todo"
-                     changeTaskTitle={this.changeTaskTitle.bind(this)}  
-                     autoExpand={this.autoExpand.bind(this)}   
-              >
-              </Board>
-
-              <Board tasks={this.state.tasks}
-                    addTask={this.addTask.bind(this)}
-                    updateDroppedItem={this.updateDroppedItem.bind(this)}
-                    category="wip"
-                    changeTaskTitle={this.changeTaskTitle.bind(this)}
-                    autoExpand={this.autoExpand.bind(this)}              
-              >
-              </Board>
-
-              <Board tasks={this.state.tasks}
-                    addTask={this.addTask.bind(this)}
-                    updateDroppedItem={this.updateDroppedItem.bind(this)}
-                    category="done"
-                    changeTaskTitle={this.changeTaskTitle.bind(this)}
-                    autoExpand={this.autoExpand.bind(this)}   
-              >
-              </Board>
+              {this.renderBoards()}
 
               {this.state.isClicked 
               && <AddList
                     listName={this.state.listName}
                     handleNameUpdate={this.handleListNameUpdate.bind(this)}
                     handleListNameSave={this.handleListNameSave.bind(this)}
+                    cancelAddList={this.cancelAddList.bind(this)}
+                    handleEnter={this.handleEnter.bind(this)}
                 >
                 </AddList>}
               
-              <button onClick={this.addNewList.bind(this)}>Add a list</button>
-
+              <button className="addBtn newListBtn"
+                      id="addBtn"
+                      onClick={this.addNewList.bind(this)}
+                    >+ Add a list</button>
+              {/* <button className="backgroundBtn"> 
+                Change background
+              </button> */}
             </div>)
           }
 }

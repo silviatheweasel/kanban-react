@@ -1,9 +1,10 @@
 .board {
-    width: 300px;
-    padding: 20px;
+    width: 280px;
+    padding: 10px;
     background-color: #EBECF0;
     border-radius: 5px;
-    margin: 10px; 
+    margin: 10px 5px; 
+    float: left;
 }
 
 .cardContainer {
@@ -14,7 +15,7 @@
 h2 {
     font-size: 17px;
     color: #252B47;
-    padding: 8px 0;
+    /* padding: 8px 0; */
 }
 
 

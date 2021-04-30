@@ -11,15 +11,25 @@ export class AddList extends React.Component {
     handleClick() {
         if (this.props.listName !== "") {
             this.props.handleListNameSave(this.props.listName);
-            // document.getElementById("btn" + this.props.category).className = "addBtn";
         } else {
             return;
         }
     }
 
+    handleEnter(event) {
+        const inputName = event.target.value;
+        if (event.keyCode === 13 && inputName !== "") {
+        this.props.handleEnter(inputName);
+        }
+    }
+
+    handleCancel() {
+        this.props.cancelAddList();
+    }
+
     render() {
         return (<div>
-                    <div className="newListContainer"> 
+                    <div className="newListContainer board"> 
                                             
                         <input  name="newListInput"
                                 className="newListInput"
@@ -27,10 +37,10 @@ export class AddList extends React.Component {
                                 placeholder="Enter list title..."                              
                                 maxLength="100"
                                 value={this.props.listName} 
-                                autoFocus     
+                                autoFocus
+                                autoComplete="off"     
                                 onChange={this.handleChange.bind(this)}
-                                // onInput={this.handleInput.bind(this)}
-                                // onKeyUp={this.handleEnter.bind(this)}                       
+                                onKeyUp={this.handleEnter.bind(this)}                       
                                 >
                         </input>
 
@@ -39,6 +49,7 @@ export class AddList extends React.Component {
                                     onClick={this.handleClick.bind(this)}
                                     >Add List</button>
                             <button className="cancelBtn"
+                                    onClick={this.handleCancel.bind(this)}
                                     ><i className="fas fa-times fa-lg"></i></button>
                         </div>
 
