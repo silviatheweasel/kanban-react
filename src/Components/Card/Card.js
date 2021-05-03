@@ -80,7 +80,9 @@ export class Card extends React.Component {
                                         draggable="true"
                                         onDragStart={context.startDrag.bind(context)}
                                         onMouseEnter={context.enterHover.bind(context, i)}
-                                        onMouseLeave={context.leaveHover.bind(context, i)}>
+                                        onMouseLeave={context.leaveHover.bind(context, i)}
+                                        onClick={context.enterHover.bind(context, i)}
+                                        >
 
                                     <span className="title"
                                           id={"title-"+ this.props.category + i}

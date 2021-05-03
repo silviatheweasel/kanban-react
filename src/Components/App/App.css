@@ -121,7 +121,6 @@ html, body {
 .page .board .addBtn {
   width: 260px;
   margin: 10px;
-  display: block;
   padding: 15px 20px;
   z-index: 10;
 }
