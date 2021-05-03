@@ -1,5 +1,4 @@
 import React from "react";
-// import "./Board.css";
 import { Card } from "../Card/Card";
 
 export class Board extends React.Component {
