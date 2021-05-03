@@ -2,7 +2,6 @@ import React from "react";
 import { Board } from "../Board/Board";
 import { AddList } from "../AddList/AddList";
 import './App.css';
-import mountains from "../../Media/mountains-6029596_1920.jpg";
 
 class App extends React.Component {
   constructor(props) {
@@ -124,26 +123,9 @@ class App extends React.Component {
 
 
   render() {
-    // const images = [{name: "mountains",
-    //                  alt: "mountains",
-    //                 filePath: "mountains-6029596_1920.jpg"
-    //                  }, 
-    //                     {name: "person",
-    //                                     alt: "person",
-    //                                     fileName: "person-6076771_1920.jpg"
-    //                                     },
-    //                     {name: "sunrise",
-    //                                     alt: "sunrise",
-    //                                     fileName: "sunrise-5863751_1920.png"
-    //                                     }
-    //                     ]
-    const backgroundImg = <img src={mountains}
-                               alt="mountains"
-                               id="background"></img>
+
  
     return (<div className="page">
-
-              {backgroundImg}
 
               <div id="dimmer"
                    className="hidden"
@@ -162,13 +144,10 @@ class App extends React.Component {
                 >
                 </AddList>}
               
-              <button className="addBtn newListBtn"
+              <button className="newListBtn"
                       id="addBtn"
                       onClick={this.addNewList.bind(this)}
                     >+ Add a list</button>
-              {/* <button className="backgroundBtn"> 
-                Change background
-              </button> */}
             </div>)
           }
 }
