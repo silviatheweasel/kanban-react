@@ -11,7 +11,7 @@
 }
 
 .card {
-    background-color: white;
+    background-color: #ededed;
     color: #22273a;
     font-size: 15px;
     padding: 10px 2px;
@@ -69,7 +69,7 @@ i {
     height: auto;
 }
 
-.saveBtn {
+/* .saveBtn {
     display: block;
     padding: 8px 25px;
     border-radius: 5px;
@@ -86,7 +86,7 @@ i {
 .saveBtn:focus {
     background-color: #70c05a;
     outline: none;
-}
+} */
 
 .titleBox:focus {
     outline: none;

@@ -1,10 +1,14 @@
 .board {
-    width: 280px;
+    width: 300px;
     padding: 10px;
     background-color: #EBECF0;
-    border-radius: 5px;
     margin: 10px 5px; 
     float: left;
+    border-radius: 30px;
+    background: #ededed;
+    box-shadow:  10px 10px 21px #c0c0c0,
+                 -10px -10px 21px #ffffff;
+    color: black;
 }
 
 .cardContainer {
@@ -15,7 +19,7 @@
 h2 {
     font-size: 17px;
     color: #252B47;
-    /* padding: 8px 0; */
+    padding: 10px 20px;
 }
 
 
@@ -24,7 +28,7 @@ h2 {
     flex-direction: row;
 }
 
-.addBtn {
+/* .addBtn {
     width: 100%;
     border-color: transparent;
     color: rgb(122, 123, 128);
@@ -34,30 +38,30 @@ h2 {
     font-size: 15px;
     padding: 8px;
     background-color: #EBECF0;
-}
+} */
 
-.addBtn:hover,
+/* .addBtn:hover,
 .addBtn:focus,
 .addBtn:active {
     background-color: #e3e5e9;
     color: #181b29;
     outline: none;
-}
+} */
 
-.cancelBtn {
+/* .cancelBtn {
     background-color: transparent;
     border: none;
     padding: 0;
     margin: 10px 0 0 0;
     cursor: pointer;
     color: rgb(122, 123, 128);
-}
-.cancelBtn:hover,
+} */
+/* .cancelBtn:hover,
 .cancelBtn:focus,
 .cancelBtn:active {
     color: #181b29;
     outline: none;
-}
+} */
 
 .newTaskInput {
     width: 260px;

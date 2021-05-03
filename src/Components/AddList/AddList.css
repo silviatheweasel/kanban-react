@@ -1,10 +1,11 @@
 .newListInput {
-    width: 100%;
+    width: 80%;
+    display: block;
+    margin: 15px auto;
     padding: 8px;
     font-size: 15px;
-    color: #22273a;
     outline: none;
-    border-color: rgb(66, 66, 158);
+    border: 5px inset #ededed;
     border-radius: 4px;
 }
 

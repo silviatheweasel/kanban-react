@@ -1,5 +1,5 @@
 import React from "react";
-import "./AddList.css";
+// import "./AddList.css";
 
 export class AddList extends React.Component {
 
@@ -28,8 +28,7 @@ export class AddList extends React.Component {
     }
 
     render() {
-        return (<div>
-                    <div className="newListContainer board"> 
+        return (<div className="board"> 
                                             
                         <input  name="newListInput"
                                 className="newListInput"
@@ -53,8 +52,7 @@ export class AddList extends React.Component {
                                     ><i className="fas fa-times fa-lg"></i></button>
                         </div>
 
-                    </div>
-        </div>)
+                </div>)
     }
 
 };

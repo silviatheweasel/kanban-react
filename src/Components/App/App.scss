@@ -1,0 +1,238 @@
+$neoShadow: 11px 11px 25px #7b7b7b,
+            -11px -11px 25px #ffffff;
+$darkBlue: #22273a;
+
+%textArea {
+    font-family: Helvetica, sans-serif;
+    font-size: inherit;
+    width: 260px;
+    font-size: 15px;
+    position: relative;
+    border-radius: 5px;
+    border-color: transparent;
+    padding: 8px;
+    color: $darkBlue;
+    resize: none;
+    height: auto;
+    &:focus {
+        outline: none;
+    }
+}
+
+%button {
+    font-size: 15px;
+    border: none;
+    font-weight: 400;
+    border-radius: 90px;
+    background: #ededed;
+    box-shadow: $neoShadow;
+    cursor: pointer;  
+    color: rgb(120, 124, 128);
+    outline: none;
+}
+
+%activeButton {
+    box-shadow: inset 26px 26px 41px #c5c5c5,
+                inset -26px -26px 41px #ffffff;
+    color: #252B47;
+}
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+.hidden {
+    display: none;
+}              
+.displayed {
+    display: inline-block;
+}
+
+html, body {
+    background-color:#ededed;
+}
+.page {
+    display: flex;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: #ededed;
+    align-items: flex-start;
+    font-family: Helvetica, sans-serif;
+    overflow-x: scroll;
+    padding: 20px;
+    #dimmer {
+        position: fixed;
+        z-index: 5;
+        top: 0;
+        left: 0;
+        background: #edededb6;
+        backdrop-filter: blur(5px);
+        height: 100%;
+        width: 100%;
+      }
+    .board {
+        min-width: 300px;
+        padding: 10px;
+        background-color: #EBECF0;
+        margin: 10px; 
+        float: left;
+        border-radius: 30px;
+        background: #ededed;
+        box-shadow:  $neoShadow;
+        color: $darkBlue;
+        h2 {
+            font-size: 17px;
+            color: #252B47;
+            padding: 10px 20px;
+        }
+        .cardContainer {
+            padding-top: 10px;
+        }
+        .newTaskInput {
+            width: 270px;
+            margin-bottom: 15px;
+            margin-left: 5px;
+            @extend %textArea;
+            z-index: 10;
+            border-radius: 15px;
+            background: #ededed;
+            box-shadow: $neoShadow;
+            padding: 10px 15px;
+        }
+        .addBtn {
+            @extend %button;
+            width: 260px;
+            margin: 10px; 
+            display: block;
+            padding: 15px 20px;
+            z-index: 10;
+            &:active,
+            &:hover,
+            &:focus {
+                @extend %activeButton;
+            }
+        }
+        .newListInput {
+            width: 80%;
+            display: block;
+            margin: 15px auto;
+            padding: 15px 20px;
+            font-size: 15px;
+            outline: none;
+            border-radius: 50px;
+            background: #e0e0e0;
+            border: none;
+            box-shadow: inset 20px 20px 60px #bebebe,
+                        inset -20px -20px 60px #ffffff;
+        }
+        .saveBtn {
+            @extend %button;
+            width: 40%;
+            padding: 10px;
+            margin: 15px 20px;
+            &:active,
+            &:hover,
+            &:focus {
+                @extend %activeButton;
+            }
+        }         
+        .cancelBtn {
+            @extend %button;
+            width: 30%;
+            padding: 10px;
+            margin: 15px 20px;
+            &:active,
+            &:hover,
+            &:focus {
+                @extend %activeButton;
+            }
+        }
+        .card-container {
+            position: relative;
+            .card {
+                background-color: #ededed;
+                color: $darkBlue;
+                font-size: 15px;
+                padding: 20px;
+                border-radius: 16px;
+                margin: 0 5px 15px 5px;
+                cursor:pointer;
+                position: relative; 
+                z-index: 1;
+                box-shadow: $neoShadow;
+                .title {
+                    word-break: break-all;
+                }
+                .renameBtn {
+                    color: gray;
+                    background: #edededb6;
+                    backdrop-filter: blur(5px);
+                    float: right;
+                    border-radius: 4px;
+                    cursor: pointer;
+                    border-color: transparent;
+                    position: absolute;
+                    right: 10px;
+                    top: 12px;
+                    &:hover,
+                    &:focus,
+                    &:active { 
+                        color: $darkBlue;
+                        outline: none;
+                    }
+                    i {
+                        padding: 8px;
+                        font-size: 13px;
+                    }
+                }
+            }
+            .titleChangeBox {
+                position: absolute;
+                top: 0;
+                bottom: 46px;
+                width: 270px;
+                z-index: 20;
+                height: fit-content;
+                .titleBox {
+                    min-height: 50px;
+                    height: auto;
+                    width: 270px;
+                    padding: 20px;
+                    @extend %textArea;
+                    border-radius: 20px;
+                    box-shadow: $neoShadow;
+                    background-color: #ededed;
+                }
+                .saveBtn {
+                    @extend %button;
+                    margin-top: 30px;
+                    z-index: 20;
+                    position: absolute;
+                    right: 0;
+                    bottom: 0;
+                    &:active,
+                    &:hover,
+                    &:focus {
+                        @extend %activeButton;
+                    }
+                }
+            }           
+        }
+    }
+    .newListBtn {
+        @extend %button;
+        min-width: 260px;
+        margin: 10px 5px; 
+        padding: 20px;
+        &:active,
+        &:hover,
+        &:focus {
+            @extend %activeButton;
+        }
+    }
+  }
+
