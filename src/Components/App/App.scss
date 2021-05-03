@@ -107,7 +107,6 @@ html, body {
             @extend %button;
             width: 260px;
             margin: 10px; 
-            display: block;
             padding: 15px 20px;
             z-index: 10;
             &:active,
